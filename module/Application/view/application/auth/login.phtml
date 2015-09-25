@@ -1,0 +1,46 @@
+<?php
+
+$form->prepare();
+echo $this->form()->openTag($form);
+?>
+<div class="row t-main">
+
+                <div class="t-main-wrapper">
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 c-login">
+                        <div class="text-center center-block c-login__logo">
+                            <a href="#">
+                                <img src="img/logo.png" />
+                            </a>
+                        </div>
+
+                        <div class="center-block c-login__form">
+                            <form class="c-form">
+                                <div class = "form-group" >
+                                    <label>Enter User Email Address</label>
+                                   <?php echo $this->formRow($form->get('usr_email_id')); ?>
+                                </div>
+                                <div class="form-group">
+                                <label>Enter User Password</label>
+                                    <?php echo $this->formRow($form->get('usr_password')); ?>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                      <?php echo $this->formRow($form->get('rememberme')); ?>
+                                    </label>
+                                     <?php echo $this->formElement($form->get('submit')); ?>
+                                </div>
+                            </form>
+                            <?php echo $this->form()->closeTag(); ?> 
+                        </div>
+
+                        <div class="center-block c-login__lost-password-link">
+                            <a href="#">
+                                <em>Lost Your Password?</em>
+                            </a>
+                        </div>
+                    </div>
+
+                </div> <!-- End t-main-wrapper -->
+
+            </div> <!-- End t-main -->

@@ -1,0 +1,48 @@
+<div class="col-xs-12 col-sm-9 col-md-10">
+<?php
+
+$title = 'Add New Quality Parameters';
+ $this->headTitle($title);
+ ?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+ <?php
+ $form->setAttribute('action', $this->url('home', array('action' => 'add')));
+ $form->prepare();
+
+ echo $this->form()->openTag($form);
+ ?>
+
+
+ <div class="form-group col-md-6"> <label>Project Name</label><?php echo $this->formRow($form->get('project_name'));?>
+ </div>
+ <div class="form-group col-md-6"> 
+ <label>Project Quality</label>
+ <?php echo $this->formRow($form->get('quality')); ?>
+ </div>
+  <div class="form-group col-md-6"> 
+  <label>Project Schedule</label>
+  <?php echo $this->formRow($form->get('schedule')); ?>
+  </div>
+  <div class="form-group col-md-6">
+  <label>Project Process</label> 
+  <?php echo $this->formRow($form->get('process')); ?>
+  </div>
+  <div class="form-group col-md-6">
+  <label>Project Effort Variance</label>
+   <?php echo $this->formRow($form->get('effort_variance'));?>
+  </div>
+  <div class="form-group col-md-6">
+  <label>Project Customer Management</label> 
+  <?php echo $this->formRow($form->get('customer_management')); ?>
+  </div>
+  <div class="form-group col-md-6"> 
+  <label>Current Month Billing Target</label>
+  <?php echo $this->formRow($form->get('current_month_billing_target')); ?></div>
+  <div class="form-group col-md-6">
+  <label>Enter the Review Date</label>
+  <input type='text' class="form-control datepicker" id='datetimepicker2' />
+  </div>
+  <div class= 'form-group col-md-12'> <?php echo $this->formSubmit($form->get('submit'));?></div>
+   <?php echo $this->form()->closeTag(); ?>
+  </div>
+

@@ -1,0 +1,119 @@
+<html>
+<body>
+<h1>Weekly Summary Report</h1>
+    <div>
+    <table style="border: 1px solid black">
+    <tr nobr="true">
+     <th width="100" style="border: 1px solid black"></th>
+     <th width="80" style="border: 1px solid black;text-align: center"><b>Legends</b></th>
+     <th style="border: 1px solid black"></th>
+     <th width="40" style="background-color:#008000"><b>Green</b></th>
+     <th width="40" style="background-color:#FFC200"><b>Amber</b></th>
+     <th width="40" style="background-color:#FF0000"><b>Red</b></th>
+     <th width="40" style="border: 1px solid black;text-align: center"></th>
+     <th width="40" style="border: 1px solid black;text-align: center"></th>
+     <th width="50" style="border: 1px solid black;text-align: center"><b>Q: Quality</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>S: Schedule</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>P: Process</b></th>
+     <th width="50" style="border: 1px solid black;text-align: center"><b>EV: Effort Variance</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>CM: Customer Management</b></th>
+     <th style="border: 1px solid black"></th>
+     <th style="border: 1px solid black"></th>
+     <th width="60" style="border: 1px solid black"></th>
+     <th width="110" style="border: 1px solid black"></th>
+     </tr>
+    
+    <tr nobr="true">
+     <th style="border: 1px solid black;text-align: center";><b>Time & Material Project Name</b></th>
+    <th style="border: 1px solid black;text-align: center"><b>Project Type</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>Owner</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>Q</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>S</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>P</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>EV</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>CM</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>Current Month Billing Target</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>Accured Hrs till last Month</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>Accured Hrs in current Month</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>Project Plan Hours</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>Hours Consumed</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>% Remaining</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>Hours Needed To Finish</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>Completion Date</b></th>
+     <th style="border: 1px solid black;text-align: center"><b>Other Comment</b></th>
+    </tr>
+     
+     <?php foreach ($projects as $project) : ?>
+     <tr nobr="true">
+   
+     <td style="border: 1px solid black;height:50px;text-align: center"><?php echo $this->escapeHtml($project['projectName']);?></td>
+     <td style="border: 1px solid black;text-align: center"><?php echo $this->escapeHtml($project['projectType']);?></td>
+    <td style="border: 1px solid black;text-align: center"><?php echo $this->escapeHtml($project['owner']);?></td>
+    <?php
+    $qualityBackground = (
+    ($project['quality'] <= 1) ? "red" :
+    (($project['quality'] > 1 && $project['quality'] <= 2.5) ? "yellow" : 'green')
+     );
+     ?>
+    <td style="border: 1px solid black;background-color:<?php echo $qualityBackground;?>" ><?php echo $this->escapeHtml($project['quality']);?></td>
+    <?php
+    $scheduleBackground = (
+    ($project['schedule'] <= 1) ? "red" :
+    (($project['schedule'] > 1 && $project['schedule'] <= 2.5) ? "yellow" : 'green')
+ );
+     ?>
+    <td style="border: 1px solid black;background-color:<?php echo $scheduleBackground;?>" ><?php echo $this->escapeHtml($project['schedule']);?></td>
+     
+     <?php
+    $processBackground = (
+    ($project['process'] <= 1) ? "red" :
+    (($project['process'] > 1 && $project['process'] <= 2.5) ? "yellow" : 'green')
+ );
+     ?>
+    <td style="border: 1px solid black;background-color:<?php echo $processBackground;?>" ><?php echo $this->escapeHtml($project['process']);?></td>
+     
+      <?php
+    $effortVarianceBackground = (
+    ($project['effortVariance'] <= 1) ? "red" :
+    (($project['effortVariance'] > 1 && $project['effortVariance'] <= 2.5) ? "yellow" : 'green')
+     ); 
+     ?>
+    <td style="border: 1px solid black;background-color:<?php echo $effortVarianceBackground;?>" ><?php echo $this->escapeHtml($project['effortVariance']);?></td>
+    
+     <?php
+    $customerManagmentBackground = (
+    ($project['customerManagment'] <= 1) ? "red" :
+    (($project['customerManagment'] > 1 && $project['customerManagment'] <= 2.5) ? "yellow" : 'green')
+     ); 
+     ?>
+     <td style="border: 1px solid black;background-color:<?php echo $customerManagmentBackground;?>" ><?php echo $this->escapeHtml($project['customerManagment']);?></td>
+
+     <td style="border: 1px solid black"><?php echo $this->escapeHtml(ceil(
+         ($project['effort'])+($project['estimate']-$project['spent'])+(($project['totalEstimate']/($project['diffDate']+1))*($project['endDay']-$project['startDay']))));?></td>
+    <?php
+    $accuredHrsTillLastMnth = (($project['projectType']=='Time and Material')?'N/A':ceil($project['totalConsumeHrs']-$project['totalCurrentMnthConsumeHrs']));
+    ?>
+    <td style="border: 1px solid black"><?php echo $this->escapeHtml($accuredHrsTillLastMnth);?></td>
+
+     <td style="border: 1px solid black"><?php echo $this->escapeHtml(ceil($project['totalCurrentMnthConsumeHrs']));?></td>
+     
+     <td style="border: 1px solid black"><?php echo $this->escapeHtml(ceil($project['estimatedHours']));?></td>
+
+     <td style="border: 1px solid black"><?php echo $this->escapeHtml(ceil($project['totalConsumeHrs']));?></td>
+
+     <td style="border: 1px solid black"><?php echo $this->escapeHtml(100-($project['percentComplete']));?></td> 
+
+    <td style="border: 1px solid black"><?php echo $this->escapeHtml(floor($project['estimatedHours']-$project['totalCurrentMnthConsumeHrs']));?></td>
+
+     <td style="border: 1px solid black"><?php echo $this->escapeHtml($project['completionDate']);?></td>
+
+     <td style="border: 1px solid black"><?php echo $this->escapeHtml($project['comment']);?></td>
+     
+ </tr>
+ <?php endforeach; ?>
+ </table>
+</div>
+</body>
+</html>
+
+ 

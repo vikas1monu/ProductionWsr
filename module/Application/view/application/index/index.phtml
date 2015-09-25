@@ -1,0 +1,142 @@
+<div class="col-xs-12 col-sm-9 col-md-10">
+    <div class="c-background-lightgrey c-report-elements c-report-elements-first">
+        <h2 class="c-label-heading c-report-elements-first__heading">Report Elements</h2>
+        <div class="c-report-elements-first__excel">
+        <h2>Weekly Summary Report</h2>
+        <a href="<?php echo $this->url('home', array('action'=>'add'));?>">Add Quality Parameters</a>
+
+    <div class="table-responsive">
+    <table class="table table-bordered c-weekly-summary">
+    <tr>
+     <th></th>
+     <th>Legends</th>
+     <th></th>
+     <th class = 'green'>Green</th>
+     <th class = 'amber'>Amber</th>
+     <th class = 'red'>Red</th>
+     <th></th>
+     <th></th>
+     <th>Q: Quality</th>
+     <th>S: Schedule</th>
+     <th>P: Process</th>
+     <th>EV: Effort Variance</th>
+     <th>CM: Customer Management</th>
+     <th></th>
+     <th></th>
+     <th></th>
+     </tr>
+    
+    <tr>
+     <th id='th'>Time & Material Project Name</th>
+     <th>Project Type</th>
+     <th>Owner</th>
+     <th>Q</th>
+     <th>S</th>
+     <th>P</th>
+     <th>EV</th>
+     <th>CM</th>
+     <th>Current Month Billing Target</th>
+     <th>Accured Hrs till last Month</th>
+     <th>Accured Hrs in current Month</th>
+     <th>Project Plan Hours</th>
+     <th>Hours Consumed</th>
+     <th>% Remaining</th>
+     <th>Hours Needed To Finish</th>
+     <th>Completion Date </th>
+     <th id='th'>Other Comment </th>
+    </tr>
+     
+     <?php foreach ($projects as $project) : ?>
+     <tr >
+   
+     <td><?php echo $this->escapeHtml($project['projectName']);?></td>
+     <td><?php echo $this->escapeHtml($project['projectType']);?></td>
+    <td><?php echo $this->escapeHtml($project['owner']);?></td>
+    <?php
+    if ($project['quality'] < 1 || $project['quality'] == 1)
+    
+      $qualityClass = 'red';
+     else if(($project['quality'] >1) && ($project['quality'] <2.5))
+      $qualityClass = 'amber';
+     else
+     $qualityClass = 'green';
+    ?>
+     <td class=<?= $qualityClass;?> >
+        <?php echo $this->escapeHtml($project['quality']);?>
+     </td>
+     <?php
+     if ($project['schedule'] < 1 || $project['schedule'] == 1)
+     
+      $qualityClass = 'red';
+     else if(($project['schedule'] >1) && ($project['schedule'] <=2.5))
+      $qualityClass = 'amber';
+     else
+     $qualityClass = 'green';
+    ?>
+     <td class=<?= $qualityClass;?> ><?php echo $this->escapeHtml($project['schedule']);?></td>
+     <?php
+     if ($project['process'] < 1 || $project['process'] == 1)
+     
+      $qualityClass = 'red';
+     else if(($project['process'] >1) && ($project['process'] <=2.5))
+      $qualityClass = 'amber';
+     else
+     $qualityClass = 'green';
+    ?>
+     <td class=<?= $qualityClass;?> ><?php echo $this->escapeHtml($project['process']);?></td>
+      <?php
+     if ($project['effortVariance'] < 1 || $project['effortVariance'] == 1)
+      $qualityClass = 'red';
+     else if(($project['effortVariance'] >1) && ($project['effortVariance'] <=2.5))
+      $qualityClass = 'amber';
+     else 
+     $qualityClass = 'green';
+    ?>
+    <td class=<?= $qualityClass;?> ><?php echo $this->escapeHtml($project['effortVariance']);?></td>
+     <?php
+     if ($project['customerManagment'] < 1 || $project['customerManagment'] == 1)
+     
+      $qualityClass = 'red';
+     else if(($project['customerManagment'] >1) && ($project['customerManagment'] <=2.5))
+      $qualityClass = 'amber';
+     else
+     $qualityClass = 'green';
+    ?>
+     <td class=<?= $qualityClass;?> ><?php echo $this->escapeHtml($project['customerManagment']);?></td>
+     
+     <td><?php echo $this->escapeHtml
+     (ceil($project['currentMnthBillTarget']));?></td>
+    <?php
+    $accuredHrsTillLastMnth = (($project['projectType']=='Time and Material')?"N/A":ceil($project['hrsTillLastMnth']));
+    ?>
+    <td><?php echo $this->escapeHtml($accuredHrsTillLastMnth);?></td>
+     <td><?php echo $this->escapeHtml(ceil($project['totalCurrentMnthConsumeHrs']));?></td>
+     
+     <td><?php echo $this->escapeHtml(ceil($project['estimatedHours']));?></td>
+     <td><?php echo $this->escapeHtml(ceil($project['totalConsumeHrs']));?></td>
+     <td><?php echo $this->escapeHtml($project['percentRemain']);?></td>  
+      <td><?php echo $this->escapeHtml(ceil($project['hrsNeedToFinish']));?></td>
+     <td><?php echo $this->escapeHtml($project['completionDate']);?></td>
+     <td><?php echo $this->escapeHtml($project['comment']);?></td>
+     
+ </tr>
+ <?php endforeach; ?>
+ </table>
+</div>
+    <div class="text-right c-download-pdf"> 
+       <a class="btn btn-success" href="<?php echo $this->url('home', array('action'=>'pdf'));?>">Download PDF</a>
+    </div>
+   
+    </div>
+    </div>
+
+        <div class="c-background-lightgrey c-report-elements c-report-elements-second">
+            <h2 class="c-label-heading c-report-elements-second__heading">Report Elements</h2>
+            <div class="c-report-elements-second__excel">
+                <h2>Report Title</h2>
+            </div>
+        </div>
+</div>
+
+
+ 
